@@ -52,8 +52,7 @@ def generate_launch_description():
                        'velocity_smoother',
                        'map_server' ]
     # Get the robot-specific namespace from an environment variable             
-    # The actual namespace is unavailable at that point                         
-    env_ns = ''                          # os.environ.get('ROS_2_NAV_NS')                                     
+    # The actual namespace is unavailable at that point                                                        
     env_id = str(os.environ.get('ROS_DOMAIN_ID'))   
 
     # Map fully qualified names to relative ones so the node's namespace can be prepended.
