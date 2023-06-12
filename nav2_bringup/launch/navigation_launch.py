@@ -49,8 +49,7 @@ def generate_launch_description():
                        'behavior_server',
                        'bt_navigator',
                        'waypoint_follower',
-                       'velocity_smoother',
-                       'map_server' ]
+                       'velocity_smoother' ]
     # Get the robot-specific namespace from an environment variable             
     # The actual namespace is unavailable at that point                                                        
     env_id = str(os.environ.get('ROS_DOMAIN_ID'))   
@@ -62,8 +61,7 @@ def generate_launch_description():
     # TODO(orduno) Substitute with `PushNodeRemapping`
     #              https://github.com/ros2/launch_ros/issues/56
     remappings = [('/tf', 'tf'),
-                  ('/tf_static', 'tf_static'),
-                ('/map','/ros2_map'),]
+                  ('/tf_static', 'tf_static'),]
                 #('cmd_vel_smoothed', '/' + env_ns + '/cmd_vel'),
                 #('/map', '/' + env_ns + '/map'),]
                   #('/' + env_ns + '/initialpose', '/initialpose'),]
@@ -211,17 +209,7 @@ def generate_launch_description():
                 arguments=['--ros-args', '--log-level', log_level],
                 parameters=[{'use_sim_time': use_sim_time},
                             {'autostart': autostart},
-                            {'node_names': lifecycle_nodes}]),
-             Node(
-                 package='nav2_map_server',
-                 executable='map_server',
-                 name='map_server',
-                 output='screen',
-                 respawn=use_respawn,
-                 respawn_delay=2.0,
-                 parameters=[configured_params],
-                 arguments=['--ros-args', '--log-level', log_level],
-                 remappings=remappings),
+                            {'node_names': lifecycle_nodes}])
 
         ]
     )
