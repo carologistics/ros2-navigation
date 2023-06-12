@@ -51,11 +51,16 @@ def generate_launch_description():
     #              https://github.com/ros2/launch_ros/issues/56
     remappings = [('/tf', 'tf'),
                   ('/tf_static', 'tf_static')]
+    
+    env_id = str(os.environ.get('ROS_DOMAIN_ID'))  
 
     # Create our own temporary YAML files that include substitutions
     param_substitutions = {
         'use_sim_time': use_sim_time,
-        'yaml_filename': map_yaml_file}
+        'yaml_filename': map_yaml_file,
+        'base_frame_id': "robotinobase" + env_id +"base_link",
+        'odom_frame_id': "robotinobase" + env_id +"odom",
+        'robot_base_frame': "robotinobase" + env_id +"base_link"}
 
     configured_params = RewrittenYaml(
         source_file=params_file,
