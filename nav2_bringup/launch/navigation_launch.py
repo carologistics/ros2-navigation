@@ -42,6 +42,7 @@ def generate_launch_description():
     container_name_full = (namespace, '/', container_name)
     use_respawn = LaunchConfiguration('use_respawn')
     log_level = LaunchConfiguration('log_level')
+    use_robot_state_pub = LaunchConfiguration('use_robot_state_pub')
 
     lifecycle_nodes = ['controller_server',
                        'smoother_server',
@@ -49,7 +50,8 @@ def generate_launch_description():
                        'behavior_server',
                        'bt_navigator',
                        'waypoint_follower',
-                       'velocity_smoother' ]
+                       'velocity_smoother',
+                       'robot_state_publisher']
     # Get the robot-specific namespace from an environment variable             
     # The actual namespace is unavailable at that point                                                        
     env_id = str(os.environ.get('ROS_DOMAIN_ID'))   
@@ -122,6 +124,28 @@ def generate_launch_description():
     declare_log_level_cmd = DeclareLaunchArgument(
         'log_level', default_value='info',
         description='log level')
+    
+    declare_use_robot_state_pub_cmd = DeclareLaunchArgument(
+        'use_robot_state_pub',
+        default_value='True',
+        description='Whether to start the robot state publisher')
+    
+    urdf = os.path.join(bringup_dir, 'urdf', 'robotino.urdf')
+    with open(urdf, 'r') as infp:
+        robot_description = infp.read()
+    
+    start_robot_state_publisher_cmd = Node(
+        condition=IfCondition(use_robot_state_pub),
+        package='robot_state_publisher',
+        executable='robot_state_publisher',
+        name='robot_state_publisher',
+        namespace=namespace,
+        output='screen',
+        parameters=[{'use_sim_time': use_sim_time,
+                     'robot_description': robot_description}],
+        remappings=remappings)
+    
+
 
 
 
@@ -286,10 +310,11 @@ def generate_launch_description():
     ld.add_action(declare_container_name_cmd)
     ld.add_action(declare_use_respawn_cmd)
     ld.add_action(declare_log_level_cmd)
+    ld.add_action(declare_use_robot_state_pub_cmd)
     # Add the actions to launch all of the navigation nodes
     ld.add_action(load_nodes)
     ld.add_action(load_composable_nodes)
-    
+    ld.add_action(start_robot_state_publisher_cmd)
 
     return ld
 
