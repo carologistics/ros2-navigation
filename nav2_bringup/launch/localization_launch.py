@@ -57,10 +57,7 @@ def generate_launch_description():
     # Create our own temporary YAML files that include substitutions
     param_substitutions = {
         'use_sim_time': use_sim_time,
-        'yaml_filename': map_yaml_file,
-        'base_frame_id': "robotinobase" + env_id +"base_link",
-        'odom_frame_id': "robotinobase" + env_id +"odom",
-        'robot_base_frame': "robotinobase" + env_id +"base_link"}
+        'yaml_filename': map_yaml_file,}
 
     configured_params = RewrittenYaml(
         source_file=params_file,

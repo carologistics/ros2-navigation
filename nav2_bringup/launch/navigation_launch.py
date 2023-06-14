@@ -73,9 +73,6 @@ def generate_launch_description():
     param_substitutions = {
         'use_sim_time': use_sim_time,
         'autostart': autostart,
-        'base_frame_id': "robotinobase" + env_id +"base_link",
-        'odom_frame_id': "robotinobase" + env_id +"odom",
-        'robot_base_frame': "robotinobase" + env_id +"base_link",
         }
 
 
