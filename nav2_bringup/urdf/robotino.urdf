@@ -1,0 +1,166 @@
+<robot name="robot">
+
+  <!-- Base Link -->
+  <link name="base_link"/>
+
+  <!-- front_laser Link and Joint -->
+  <link name="front_laser"/>
+  <joint name="joint_base_link_to_front_laser" type="fixed">
+    <parent link="base_link"/>
+    <child link="front_laser"/>
+    <origin xyz="0.094 0 0.2390" rpy="3.1415 0 0"/>
+  </joint>
+
+  <!-- base_laser Link and Joint -->
+  <link name="base_laser"/>
+  <joint name="joint_base_link_to_base_laser" type="fixed">
+    <parent link="base_link"/>
+    <child link="base_laser"/>
+    <origin xyz="0.094 0 0.2390" rpy="0 0 0"/>
+  </joint>
+
+  <!-- back_laser Link and Joint -->
+  <link name="back_laser"/>
+  <joint name="joint_base_link_to_back_laser" type="fixed">
+    <parent link="base_link"/>
+    <child link="back_laser"/>
+    <origin xyz="-0.11 0 0.32" rpy="0 2.94 0"/>
+  </joint>
+
+  <!-- cam_tag Link and Joint -->
+  <link name="cam_tag"/>
+  <joint name="joint_base_link_to_cam_tag" type="fixed">
+    <parent link="base_link"/>
+    <child link="cam_tag"/>
+    <origin xyz="0.0546 0 0.4675" rpy="-1.57079632679 -1.57079632679 -1.57"/>
+  </joint>
+
+  <!-- plate_top Link and Joint -->
+  <link name="plate_top"/>
+  <joint name="joint_base_link_to_plate_top" type="fixed">
+    <parent link="base_link"/>
+    <child link="plate_top"/>
+    <origin xyz="0 0 0.768" rpy="0 0 0"/>
+  </joint>
+
+  <!-- gripper_home Link and Joint -->
+  <link name="gripper_home"/>
+  <joint name="joint_plate_top_to_gripper_home" type="fixed">
+    <parent link="plate_top"/>
+    <child link="gripper_home"/>
+    <origin xyz="0.0312 0 0.1808" rpy="0 0 0"/>
+  </joint>
+
+  <!-- end_effector_home Link and Joint -->
+  <link name="end_effector_home"/>
+  <joint name="joint_gripper_home_to_end_effector_home" type="fixed">
+    <parent link="gripper_home"/>
+    <child link="end_effector_home"/>
+    <origin xyz="0.1518 0 -0.0558" rpy="0 0 0"/>
+  </joint>
+
+  <!-- conveyor_calib Link and Joint -->
+  <link name="conveyor_calib"/>
+  <joint name="joint_gripper_home_to_conveyor_calib" type="fixed">
+    <parent link="gripper_home"/>
+    <child link="conveyor_calib"/>
+    <origin xyz="0.11 0 0.01" rpy="0 0 0"/>
+  </joint>
+
+  <!-- gripper_x_origin Link and Joint -->
+  <link name="gripper_x_origin"/>
+  <joint name="joint_plate_top_to_gripper_x_origin" type="fixed">
+    <parent link="plate_top"/>
+    <child link="gripper_x_origin"/>
+    <origin xyz="0.0197 0 0.0493" rpy="0 0 0"/>
+  </joint>
+
+  <!-- gripper_y_origin Link and Joint -->
+  <link name="gripper_y_origin"/>
+  <joint name="joint_gripper_x_dyn_to_gripper_y_origin" type="fixed">
+    <parent link="gripper_x_dyn"/>
+    <child link="gripper_y_origin"/>
+    <origin xyz="-0.013 0 0.034" rpy="0 0 0"/>
+  </joint>
+
+  <!-- gripper_z_origin Link and Joint -->
+  <link name="gripper_z_origin"/>
+  <joint name="joint_gripper_y_dyn_to_gripper_z_origin" type="fixed">
+    <parent link="gripper_y_dyn"/>
+    <child link="gripper_z_origin"/>
+    <origin xyz="0.0245 0 0.0985" rpy="0 0 0"/>
+  </joint>
+
+  <!-- gripper Link and Joint -->
+  <link name="gripper"/>
+  <joint name="joint_gripper_z_dyn_to_gripper" type="fixed">
+    <parent link="gripper_z_dyn"/>
+    <child link="gripper"/>
+    <origin xyz="0.152 0 -0.0545" rpy="0 0 0"/>
+  </joint>
+
+  <!-- cam_base Link and Joint -->
+  <link name="cam_base"/>
+  <joint name="joint_gripper_y_dyn_to_cam_base" type="fixed">
+    <parent link="gripper_y_dyn"/>
+    <child link="cam_base"/>
+    <origin xyz="0.065 0.021 0.0009" rpy="1.44 0 1.57"/>
+  </joint>
+
+  <!-- cam_conveyor Link and Joint -->
+  <link name="cam_conveyor"/>
+  <joint name="joint_cam_base_to_cam_conveyor" type="fixed">
+    <parent link="cam_base"/>
+    <child link="cam_conveyor"/>
+    <origin xyz="0 0 0.01" rpy="0 0 0"/>
+  </joint>
+
+  <!-- cam_gripper Link and Joint -->
+  <link name="cam_gripper"/>
+  <joint name="joint_gripper_y_dyn_to_cam_gripper" type="fixed">
+    <parent link="gripper_y_dyn"/>
+    <child link="cam_gripper"/>
+    <origin xyz="0.07 -0.004 0.0375" rpy="0 0 0"/>
+  </joint>
+
+  <!-- cam_vs Link and Joint -->
+  <link name="cam_vs"/>
+  <joint name="joint_plate_top_to_cam_vs" type="fixed">
+    <parent link="plate_top"/>
+    <child link="cam_vs"/>
+    <origin xyz="0.003 0.171 0.168" rpy="0 0 -0.41"/>
+  </joint>
+
+  <!-- gripper_fingers_record Link and Joint -->
+  <link name="gripper_fingers_record"/>
+  <joint name="joint_gripper_to_gripper_fingers_record" type="fixed">
+    <parent link="gripper"/>
+    <child link="gripper_fingers_record"/>
+    <origin xyz="0.057 0 -0.015" rpy="1.57 0 1.57"/>
+  </joint>
+
+  <!-- gripper_fingers Link and Joint -->
+  <link name="gripper_fingers"/>
+  <joint name="joint_gripper_to_gripper_fingers" type="fixed">
+    <parent link="gripper"/>
+    <child link="gripper_fingers"/>
+    <origin xyz="0.2 0 -0.04" rpy="0 0 0"/>
+  </joint>
+
+  <!-- fingers_home Link and Joint -->
+  <link name="fingers_home"/>
+  <joint name="joint_gripper_home_to_fingers_home" type="fixed">
+    <parent link="gripper_home"/>
+    <child link="fingers_home"/>
+    <origin xyz="0.2 0 -0.04" rpy="0 0 0"/>
+  </joint>
+
+  <!-- shelf_record Link and Joint -->
+  <link name="shelf_record"/>
+  <joint name="joint_gripper_to_shelf_record" type="fixed">
+    <parent link="gripper"/>
+    <child link="shelf_record"/>
+    <origin xyz="0.2 0.06 -0.04" rpy="-1.57 0 -1.57"/>
+  </joint>
+
+</robot>

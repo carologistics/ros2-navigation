@@ -44,6 +44,7 @@ def generate_launch_description():
     use_composition = LaunchConfiguration('use_composition')
     use_respawn = LaunchConfiguration('use_respawn')
     log_level = LaunchConfiguration('log_level')
+    use_robot_state_pub = LaunchConfiguration('use_robot_state_pub')
 
     # Map fully qualified names to relative ones so the node's namespace can be prepended.
     # In case of the transforms (tf), currently, there doesn't seem to be a better alternative
@@ -116,6 +117,27 @@ def generate_launch_description():
     declare_log_level_cmd = DeclareLaunchArgument(
         'log_level', default_value='info',
         description='log level')
+    
+    declare_use_robot_state_pub_cmd = DeclareLaunchArgument(
+        'use_robot_state_pub',
+        default_value='True',
+        description='Whether to start the robot state publisher')
+    
+    urdf = os.path.join(bringup_dir, 'urdf', 'robotino.urdf')
+    with open(urdf, 'r') as infp:
+        robot_description = infp.read()
+    
+    start_robot_state_publisher_cmd = Node(
+        condition=IfCondition(use_robot_state_pub),
+        package='robot_state_publisher',
+        executable='robot_state_publisher',
+        name='robot_state_publisher',
+        namespace=namespace,
+        output='screen',
+        parameters=[{'use_sim_time': use_sim_time,
+                     'robot_description': robot_description}],
+        remappings=remappings)
+    
 
     # Specify the actions
     bringup_cmd_group = GroupAction([
@@ -164,6 +186,7 @@ def generate_launch_description():
                               'use_composition': use_composition,
                               'use_respawn': use_respawn,
                               'container_name': 'nav2_container'}.items()),
+        
     ])
 
     # Create the launch description and populate
@@ -183,8 +206,10 @@ def generate_launch_description():
     ld.add_action(declare_use_composition_cmd)
     ld.add_action(declare_use_respawn_cmd)
     ld.add_action(declare_log_level_cmd)
+    ld.add_action(declare_use_robot_state_pub_cmd)
 
     # Add the actions to launch all of the navigation nodes
     ld.add_action(bringup_cmd_group)
+    ld.add_action(start_robot_state_publisher_cmd)
 
     return ld
