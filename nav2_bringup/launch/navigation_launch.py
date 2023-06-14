@@ -50,8 +50,7 @@ def generate_launch_description():
                        'behavior_server',
                        'bt_navigator',
                        'waypoint_follower',
-                       'velocity_smoother',
-                       'robot_state_publisher']
+                       'velocity_smoother',]
     # Get the robot-specific namespace from an environment variable             
     # The actual namespace is unavailable at that point                                                        
     env_id = str(os.environ.get('ROS_DOMAIN_ID'))   
