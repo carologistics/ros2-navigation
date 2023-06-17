@@ -142,9 +142,6 @@ def generate_launch_description():
         remappings=remappings)
     
 
-
-
-
     load_nodes = GroupAction(
         condition=IfCondition(PythonExpression(['not ', use_composition])),
         actions=[
@@ -159,6 +156,13 @@ def generate_launch_description():
                 parameters=[configured_params],
                 arguments=['--ros-args', '--log-level', log_level],
                 remappings=remappings + [('cmd_vel', 'cmd_vel_nav')]),
+            # Node(
+            #     package='nav2_recoveries',
+            #     executable='recoveries_server',
+            #     name='recoveries_server',
+            #     output='screen',
+            #     parameters=[configured_params],
+            #     remappings=remappings),
             Node(
                 package='nav2_smoother',
                 executable='smoother_server',

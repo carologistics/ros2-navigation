@@ -1,55 +1,55 @@
-amcl:
-  ros__parameters:
-    use_sim_time: False
-    alpha1: 0.2
-    alpha2: 0.2
-    alpha3: 0.2
-    alpha4: 0.2
-    alpha5: 0.2
-    base_frame_id: "base_link"
-    beam_skip_distance: 0.5
-    beam_skip_error_threshold: 0.9
-    beam_skip_threshold: 0.3
-    do_beamskip: false
-    global_frame_id: "map"
-    lambda_short: 0.1
-    laser_likelihood_max_dist: 2.0
-    laser_max_range: 100.0
-    laser_min_range: -1.0
-    laser_model_type: "likelihood_field"
-    max_beams: 60
-    max_particles: 2000
-    min_particles: 500
-    odom_frame_id: "odom"
-    pf_err: 0.05
-    pf_z: 0.99
-    recovery_alpha_fast: 0.0
-    recovery_alpha_slow: 0.0
-    resample_interval: 1
-    robot_model_type: "nav2_amcl::DifferentialMotionModel"
-    save_pose_rate: 0.5
-    sigma_hit: 0.2
-    tf_broadcast: true
-    transform_tolerance: 1.0
-    update_min_a: 0.2
-    update_min_d: 0.25
-    z_hit: 0.5
-    z_max: 0.05
-    z_rand: 0.5
-    z_short: 0.05
-    scan_topic: /fawkes_scans/Laser_urg_filtered_360
-    #set_initial_pose: False
-    #initial_pose.x: 2.0
-    #initial_pose.y: 3.0
-    #initial_pose.z: 0.0
-    #initial_pose.yaw: 0.0
-    # first_map_only: True
+# amcl:
+#   ros__parameters:
+#     use_sim_time: False
+#     alpha1: 0.2
+#     alpha2: 0.2
+#     alpha3: 0.2
+#     alpha4: 0.2
+#     alpha5: 0.2
+#     base_frame_id: "base_link"
+#     beam_skip_distance: 0.5
+#     beam_skip_error_threshold: 0.9
+#     beam_skip_threshold: 0.3
+#     do_beamskip: false
+#     global_frame_id: "map"
+#     lambda_short: 0.1
+#     laser_likelihood_max_dist: 2.0
+#     laser_max_range: 100.0
+#     laser_min_range: -1.0
+#     laser_model_type: "likelihood_field"
+#     max_beams: 60
+#     max_particles: 2000
+#     min_particles: 500
+#     odom_frame_id: "robotinobase3odom"
+#     pf_err: 0.05
+#     pf_z: 0.99
+#     recovery_alpha_fast: 0.0
+#     recovery_alpha_slow: 0.0
+#     resample_interval: 1
+#     robot_model_type: "nav2_amcl::DifferentialMotionModel"
+#     save_pose_rate: 0.5
+#     sigma_hit: 0.2
+#     tf_broadcast: true
+#     transform_tolerance: 1.0
+#     update_min_a: 0.2
+#     update_min_d: 0.25
+#     z_hit: 0.5
+#     z_max: 0.05
+#     z_rand: 0.5
+#     z_short: 0.05
+#     scan_topic: /fawkes_scans/Laser_urg_filtered_360
+#     #set_initial_pose: False
+#     #initial_pose.x: 2.0
+#     #initial_pose.y: 3.0
+#     #initial_pose.z: 0.0
+#     #initial_pose.yaw: 0.0
+#     # first_map_only: True
 
 bt_navigator:
   ros__parameters:
     use_sim_time: False
     global_frame: map
-    robot_base_frame: base_link
+    robot_base_frame: robotinobase3base_link
     odom_topic: /odom
     bt_loop_duration: 10
     default_server_timeout: 10
@@ -189,8 +189,8 @@ local_costmap:
     ros__parameters:
       update_frequency: 5.0
       publish_frequency: 2.0
-      global_frame: odom
-      robot_base_frame: base_link
+      global_frame: robotinobase3odom
+      robot_base_frame: robotinobase3base_link
       use_sim_time: False
       rolling_window: true
       width: 3
@@ -233,7 +233,7 @@ global_costmap:
       update_frequency: 1.0
       publish_frequency: 1.0
       global_frame: map
-      robot_base_frame: base_link
+      robot_base_frame: robotinobase3base_link
       use_sim_time: False
       robot_radius: 0.25
       resolution: 0.015
@@ -314,8 +314,8 @@ behavior_server:
       plugin: "nav2_behaviors/Wait"
     assisted_teleop:
       plugin: "nav2_behaviors/AssistedTeleop"
-    global_frame: odom
-    robot_base_frame: base_link
+    global_frame: robotinobase3odom
+    robot_base_frame: robotinobase3base_link
     transform_tolerance: 0.1
     use_sim_time: false
     simulate_ahead_time: 2.0
@@ -352,3 +352,24 @@ velocity_smoother:
     odom_duration: 0.1
     deadband_velocity: [0.0, 0.0, 0.0]
     velocity_timeout: 1.0
+
+# recoveries_server:
+#   ros__parameters:
+#     costmap_topic: local_costmap/costmap_raw
+#     footprint_topic: local_costmap/published_footprint
+#     cycle_frequency: 10.0
+#     recovery_plugins: ["spin", "back_up", "wait"]
+#     spin:
+#       plugin: "nav2_recoveries/Spin"
+#     back_up:
+#       plugin: "nav2_recoveries/BackUp"
+#     wait:
+#       plugin: "nav2_recoveries/Wait"
+#     global_frame: odom
+#     robot_base_frame: base_footprint
+#     transform_timeout: 0.1
+#     use_sim_time: true
+#     simulate_ahead_time: 2.0
+#     max_rotational_vel: 1.0
+#     min_rotational_vel: 0.4
+#     rotational_acc_lim: 3.2
