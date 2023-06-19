@@ -50,7 +50,8 @@ def generate_launch_description():
     # TODO(orduno) Substitute with `PushNodeRemapping`
     #              https://github.com/ros2/launch_ros/issues/56
     remappings = [('/tf', 'tf'),
-                  ('/tf_static', 'tf_static')]
+                  ('/tf_static', 'tf_static'),
+                  ('/map','/ros2_map'),]
     
     env_id = str(os.environ.get('ROS_DOMAIN_ID'))  
 
