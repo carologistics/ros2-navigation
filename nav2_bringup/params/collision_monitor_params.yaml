@@ -51,7 +51,7 @@ collision_monitor:
     scan:
       type: "scan"
       topic: "/fawkes_scans/Laser_urg_filtered_360"
-      observation_sources: ["scan"]
+    # observation_sources: ["scan"]
     # scan:
     #   type: "scan"
     #   topic: "/fawkes_scans/Laser_urg_filtered_360"

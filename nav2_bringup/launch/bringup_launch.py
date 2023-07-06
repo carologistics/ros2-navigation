@@ -17,14 +17,9 @@ import os
 from ament_index_python.packages import get_package_share_directory
 
 from launch import LaunchDescription
-from launch.actions import (DeclareLaunchArgument, GroupAction,
-                            IncludeLaunchDescription, SetEnvironmentVariable)
-from launch.conditions import IfCondition
+from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import LaunchConfiguration, PythonExpression
-from launch_ros.actions import Node
-from launch_ros.actions import PushRosNamespace
-from nav2_common.launch import RewrittenYaml
+
 
 def generate_launch_description():
 
@@ -34,12 +29,12 @@ def generate_launch_description():
     return LaunchDescription([
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
-                os.path.join(pkg_launch_dir, 'navigation_launch.py')
+                os.path.join(pkg_launch_dir, 'collision_monitor_launch.py')
             ),
         ),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
-                os.path.join(pkg_launch_dir, 'collision_monitor_launch.py')
+                os.path.join(pkg_launch_dir, 'navigation_launch.py')
             ),
         ),
     ])
