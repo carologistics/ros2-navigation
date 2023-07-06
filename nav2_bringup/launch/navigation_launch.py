@@ -64,15 +64,15 @@ def generate_launch_description():
     #              https://github.com/ros2/launch_ros/issues/56
     remappings = [('/tf', 'tf'),
                   ('/tf_static', 'tf_static'),
-                ('/map','/ros2_map'),]
+                  ('/map','/ros2_map'),]
                 #('cmd_vel_smoothed', '/' + env_ns + '/cmd_vel'),
                 #('/map', '/' + env_ns + '/map'),]
-                  #('/' + env_ns + '/initialpose', '/initialpose'),]
-                  #  ('/navigate_to_pose/_action/status', '/' + env_ns + '/navigate_to_pose/_action/status'),
-                   # ('/navigate_to_pose/_action/feedback', '/' + env_ns + '/navigate_to_pose/_action/feedback')]
+                #('/' + env_ns + '/initialpose', '/initialpose'),]
+                #  ('/navigate_to_pose/_action/status', '/' + env_ns + '/navigate_to_pose/_action/status'),
+                # ('/navigate_to_pose/_action/feedback', '/' + env_ns + '/navigate_to_pose/_action/feedback')]
 
     # Create our own temporary YAML files that include substitutions
-    param_substitutions = {
+    param_substitutions_nav = {
         'use_sim_time': use_sim_time,
         'autostart': autostart,
         'base_frame_id': "robotinobase" + env_id +"base_link",
@@ -81,10 +81,10 @@ def generate_launch_description():
         }
 
 
-    configured_params = RewrittenYaml(
+    configured_params_nav = RewrittenYaml(
             source_file=params_file,
             root_key=namespace,
-            param_rewrites=param_substitutions,
+            param_rewrites=param_substitutions_nav,
             convert_types=True,
             )
 
@@ -139,7 +139,7 @@ def generate_launch_description():
                 output='screen',
                 respawn=use_respawn,
                 respawn_delay=2.0,
-                parameters=[configured_params],
+                parameters=[configured_params_nav],
                 arguments=['--ros-args', '--log-level', log_level],
                 remappings=remappings + [('cmd_vel', 'cmd_vel_raw')]),
             Node(
@@ -149,7 +149,7 @@ def generate_launch_description():
                 output='screen',
                 respawn=use_respawn,
                 respawn_delay=2.0,
-                parameters=[configured_params],
+                parameters=[configured_params_nav],
                 arguments=['--ros-args', '--log-level', log_level],
                 remappings=remappings),
             Node(
@@ -159,7 +159,7 @@ def generate_launch_description():
                 output='screen',
                 respawn=use_respawn,
                 respawn_delay=2.0,
-                parameters=[configured_params],
+                parameters=[configured_params_nav],
                 arguments=['--ros-args', '--log-level', log_level],
                 remappings=remappings),
             Node(
@@ -169,7 +169,7 @@ def generate_launch_description():
                 output='screen',
                 respawn=use_respawn,
                 respawn_delay=2.0,
-                parameters=[configured_params],
+                parameters=[configured_params_nav],
                 arguments=['--ros-args', '--log-level', log_level],
                 remappings=remappings),
             Node(
@@ -179,7 +179,7 @@ def generate_launch_description():
                 output='screen',
                 respawn=use_respawn,
                 respawn_delay=2.0,
-                parameters=[configured_params],
+                parameters=[configured_params_nav],
                 arguments=['--ros-args', '--log-level', log_level],
                 remappings=remappings),
             Node(
@@ -189,7 +189,7 @@ def generate_launch_description():
                 output='screen',
                 respawn=use_respawn,
                 respawn_delay=2.0,
-                parameters=[configured_params],
+                parameters=[configured_params_nav],
                 arguments=['--ros-args', '--log-level', log_level],
                 remappings=remappings),
             Node(
@@ -199,7 +199,7 @@ def generate_launch_description():
                 output='screen',
                 respawn=use_respawn,
                 respawn_delay=2.0,
-                parameters=[configured_params],
+                parameters=[configured_params_nav],
                 arguments=['--ros-args', '--log-level', log_level],
                 remappings=remappings +
                         [('cmd_vel', 'cmd_vel_nav'), ('cmd_vel_smoothed', 'cmd_vel')]),
@@ -220,7 +220,7 @@ def generate_launch_description():
                  output='screen',
                  respawn=use_respawn,
                  respawn_delay=2.0,
-                 parameters=[configured_params],
+                 parameters=[configured_params_nav],
                  arguments=['--ros-args', '--log-level', log_level],
                  remappings=remappings),
 
@@ -235,43 +235,43 @@ def generate_launch_description():
                 package='nav2_controller',
                 plugin='nav2_controller::ControllerServer',
                 name='controller_server',
-                parameters=[configured_params],
+                parameters=[configured_params_nav],
                 remappings=remappings + [('cmd_vel', 'cmd_vel_raw')]),
             ComposableNode(
                 package='nav2_smoother',
                 plugin='nav2_smoother::SmootherServer',
                 name='smoother_server',
-                parameters=[configured_params],
+                parameters=[configured_params_nav],
                 remappings=remappings),
             ComposableNode(
                 package='nav2_planner',
                 plugin='nav2_planner::PlannerServer',
                 name='planner_server',
-                parameters=[configured_params],
+                parameters=[configured_params_nav],
                 remappings=remappings),
             ComposableNode(
                 package='nav2_behaviors',
                 plugin='behavior_server::BehaviorServer',
                 name='behavior_server',
-                parameters=[configured_params],
+                parameters=[configured_params_nav],
                 remappings=remappings),
             ComposableNode(
                 package='nav2_bt_navigator',
                 plugin='nav2_bt_navigator::BtNavigator',
                 name='bt_navigator',
-                parameters=[configured_params],
+                parameters=[configured_params_nav],
                 remappings=remappings),
             ComposableNode(
                 package='nav2_waypoint_follower',
                 plugin='nav2_waypoint_follower::WaypointFollower',
                 name='waypoint_follower',
-                parameters=[configured_params],
+                parameters=[configured_params_nav],
                 remappings=remappings),
             ComposableNode(
                 package='nav2_velocity_smoother',
                 plugin='nav2_velocity_smoother::VelocitySmoother',
                 name='velocity_smoother',
-                parameters=[configured_params],
+                parameters=[configured_params_nav],
                 remappings=remappings +
                            [('cmd_vel', 'cmd_vel_nav'), ('cmd_vel_smoothed', '/cmd_vel')]),
             ComposableNode(

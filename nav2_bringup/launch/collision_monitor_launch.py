@@ -46,7 +46,7 @@ def generate_launch_description():
     print("env_id:", env_id) 
 
     # Create our own temporary YAML files that include substitutions
-    param_substitutions = {
+    param_substitutions_cm = {
         'use_sim_time': use_sim_time,
         #'autostart': autostart,
         'base_frame_id': "robotinobase" + env_id +"base_link",
@@ -54,10 +54,10 @@ def generate_launch_description():
         #'robot_base_frame': "robotinobase" + env_id +"base_link",
         }
 
-    configured_params = RewrittenYaml(
+    configured_params_cm = RewrittenYaml(
             source_file=params_file,
             root_key=namespace,
-            param_rewrites=param_substitutions,
+            param_rewrites=param_substitutions_cm,
             convert_types=True,
             )
     
@@ -93,7 +93,7 @@ def generate_launch_description():
             executable='collision_monitor',
             output='screen',
             emulate_tty=True,  # https://github.com/ros2/launch/issues/188
-            parameters=[configured_params])
+            parameters=[configured_params_cm])
 
     ld = LaunchDescription()
 
