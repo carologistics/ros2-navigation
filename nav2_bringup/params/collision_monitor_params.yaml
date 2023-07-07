@@ -24,9 +24,9 @@ collision_monitor:
      # polygon_pub_topic: "polygon_stop"
     PolygonSlow:
      type: "circle"
-     radius: 0.470
+     radius: 0.450
      action_type: "slowdown"
-     max_points: 5
+     max_points: 1
      slowdown_ratio: 0.2
      visualize: True
      polygon_pub_topic: "polygon_slowdown"
@@ -47,14 +47,14 @@ collision_monitor:
     #     simulation_time_step: 0.1
     #     max_points: 5
     #     visualize: False
-    observation_sources: ["scan"]
-    scan:
-      type: "scan"
-      topic: "/fawkes_scans/Laser_urg_filtered_360"
-    # observation_sources: ["range"]
-    # range:
-    #   type: "range"
-    #   topic: "/Ir_Sensor_Range"
+    #observation_sources: ["scan"]
+    #scan:
+     # type: "scan"
+     # topic: "/fawkes_scans/Laser_urg_filtered_360"
+    observation_sources: ["range"]
+    range:
+      type: "range"
+      topic: "/Ir_Sensor_Range"
     # pointcloud:
     #   type: "pointcloud"
     #   topic: "/intel_realsense_r200_depth/points"
