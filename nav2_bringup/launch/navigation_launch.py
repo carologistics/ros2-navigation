@@ -287,6 +287,13 @@ def generate_launch_description():
     # Create the launch description and populate
     ld = LaunchDescription()
 
+    initpose_node = Node(
+        package='init_pose',
+        executable='init_pose',
+        name='init_pose',
+        output='screen'
+    )
+    
     # Set environment variables
     ld.add_action(stdout_linebuf_envvar)
 
@@ -302,6 +309,7 @@ def generate_launch_description():
     # Add the actions to launch all of the navigation nodes
     ld.add_action(load_nodes)
     ld.add_action(load_composable_nodes)
+    ld.add_action(initpose_node)
     
 
     return ld

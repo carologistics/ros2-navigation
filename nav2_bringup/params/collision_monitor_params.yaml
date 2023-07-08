@@ -26,7 +26,7 @@ collision_monitor:
      type: "circle"
      radius: 0.450
      action_type: "slowdown"
-     max_points: 1
+     max_points: 2
      slowdown_ratio: 0.2
      visualize: True
      polygon_pub_topic: "polygon_slowdown"
@@ -51,10 +51,13 @@ collision_monitor:
     #scan:
      # type: "scan"
      # topic: "/fawkes_scans/Laser_urg_filtered_360"
-    observation_sources: ["range"]
-    range:
-      type: "range"
-      topic: "/Ir_Sensor_Range"
+    observation_sources: ["scan"]
+    #range:
+      #type: "range"
+      #topic: "/Ir_Sensor_Range"
+    scan:
+      type: "scan"
+      topic: "/IrSensor_Scan"
     # pointcloud:
     #   type: "pointcloud"
     #   topic: "/intel_realsense_r200_depth/points"
