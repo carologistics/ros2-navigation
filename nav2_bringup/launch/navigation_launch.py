@@ -291,6 +291,7 @@ def generate_launch_description():
         package='init_pose',
         executable='init_pose',
         name='init_pose',
+        parameters=["rb"+env_id],
         output='screen'
     )
     
